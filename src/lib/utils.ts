@@ -178,35 +178,34 @@ export function getWordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-// Hashtag Dictionary for dynamic generation
-const hashtagDictionary: { [key: string]: string[] } = {
-  ai: ["#AI", "#ArtificialIntelligence", "#TechTrends"],
-  machine: ["#MachineLearning", "#SmartTech"],
-  openai: ["#OpenAI", "#ChatGPT"],
-  urdu: ["#Urdu", "#LanguageAI"],
-  ethics: ["#AIethics", "#ResponsibleAI"],
-  climate: ["#ClimateCrisis", "#EcoFuture", "#ActNow"],
-  taylor: ["#TaylorSwift", "#PopCulture", "#EraTour", "#Swifties"],
-  sabrina: ["#SabrinaCarpenter", "#GlowUp", "#NewEra"],
-  law: ["#AIRegulation", "#EthicalAI"],
-  music: ["#MusicTrends", "#VoiceOfAGeneration"],
+const hashtagMap: Record<string, string[]> = {
+  ai: ["#AI", "#ArtificialIntelligence", "#MachineLearning", "#AIFuture"],
+  tech: ["#Tech", "#Innovation", "#FutureIsNow", "#DigitalWorld"],
+  music: ["#Music", "#PopCulture", "#NowPlaying", "#MusicLovers"],
+  taylor: ["#TaylorSwift", "#Swifties", "#ErasTour", "#SpeakNow"],
+  sabrina: ["#SabrinaCarpenter", "#FeatherEra", "#PopPrincess", "#GirlPower"],
+  climate: ["#ClimateCrisis", "#Sustainability", "#EcoAwareness", "#ActNow"],
+  ethics: ["#AIethics", "#ResponsibleTech", "#BiasInAI", "#MoralTech"],
+  generation: ["#GenZ", "#Millennials", "#VoiceOfAGeneration", "#CultureShift"],
 };
 
-const genericHashtags = ["#AI", "#FutureTech", "#DigitalEra", "#SmartWorld", "#InnovateNow", "#NextGenAI"];
+export function generateHashtags(text: string): string[] {
+  const keywords = Object.keys(hashtagMap);
+  const lowerText = text.toLowerCase();
 
-export function generateHashtags(summary: string): string[] {
-  const words = summary.toLowerCase().split(/\W+/);
-  const matched: Set<string> = new Set();
+  const hashtags = new Set<string>();
 
-  for (const word of words) {
-    if (hashtagDictionary[word]) {
-      hashtagDictionary[word].forEach(tag => matched.add(tag));
+  for (const key of keywords) {
+    if (lowerText.includes(key)) {
+      hashtagMap[key].forEach((tag) => hashtags.add(tag));
     }
   }
 
-  if (matched.size >= 5) {
-    return Array.from(matched).slice(0, 6);
+  if (hashtags.size === 0) {
+    hashtags.add("#BlogEssence");
+    hashtags.add("#AI");
+    hashtags.add("#GeneratedSummary");
   }
 
-  return [...Array.from(matched), ...genericHashtags].slice(0, 6);
+  return Array.from(hashtags).slice(0, 6); // limit to 6
 }

@@ -7,8 +7,6 @@ import { getWordCount, generateHashtags } from '@/lib/utils';
 import Particles from '@tsparticles/react';
 import { loadAll } from '@tsparticles/all';
 import type { Engine } from '@tsparticles/engine';
-import SparkleParticles from '@/components/ui/particles';
-
 
 export default function Home() {
   const [url, setUrl] = useState('');
