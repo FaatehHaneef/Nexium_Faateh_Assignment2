@@ -125,7 +125,7 @@ export default function Home() {
   return (
     
     <main className="relative min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-800 text-white px-6 md:px-10 py-12 overflow-y-auto">
-      {/* Particles Background */}
+      {/* Particles Background
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -165,7 +165,7 @@ export default function Home() {
           },
           detectRetina: true,
         }}
-      />
+      /> */}
 
       {/* Main Container */}
       <div className="max-w-5xl w-full space-y-12 mx-auto relative z-10">
