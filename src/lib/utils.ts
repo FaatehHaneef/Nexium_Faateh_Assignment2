@@ -153,26 +153,6 @@ export async function saveToSupabase(summary: string) {
   await client.from("summaries").insert([{ summary }]);
 }
 
-// ✅ MongoDB (lazy loaded)
-import { MongoClient } from "mongodb";
-
-let mongo: MongoClient | null = null;
-
-async function getMongoClient() {
-  if (!mongo) {
-    if (!process.env.MONGODB_URI) throw new Error("Missing MONGODB_URI");
-    mongo = new MongoClient(process.env.MONGODB_URI);
-    await mongo.connect();
-  }
-  return mongo;
-}
-
-export async function saveToMongo(text: string) {
-  const client = await getMongoClient();
-  const db = client.db("nexium-mongo");
-  const collection = db.collection("fulltexts");
-  await collection.insertOne({ text });
-}
 
 export function getWordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
