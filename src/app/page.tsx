@@ -41,9 +41,14 @@ export default function Home() {
       if (!res.ok) throw new Error(data.error || 'Something went wrong');
 
       setSummary(showUrdu ? data.summaryUr : data.summary);
-    } catch (err: any) {
-      setError(err.message || 'Unknown error');
-    } finally {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Unknown error');
+      } else {
+        setError('Unexpected error occurred.');
+      }
+    }
+    finally {
       setLoading(false);
     }
   };
@@ -64,7 +69,7 @@ export default function Home() {
         setSummary(showUrdu ? currentBlog.urduSummary : currentBlog.summary);
       }
     }
-  }, [showUrdu]);
+  }, [showUrdu, url, summary]);
 
   useEffect(() => {
     if (url && summary) {
@@ -80,14 +85,18 @@ export default function Home() {
           if (!res.ok) throw new Error(data.error || 'Something went wrong');
 
           setSummary(data.summary);
-        } catch (err: any) {
-          console.error('Error updating summary:', err.message);
-        }
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            setError(err.message || 'Unknown error');
+          } else {
+            setError('Unexpected error occurred.');
+          }
+        }        
       };
 
       fetchUpdatedSummary();
     }
-  }, [showUrdu]);
+  }, [showUrdu, url, summary]);
 
   useEffect(() => {
     if (summary) {
