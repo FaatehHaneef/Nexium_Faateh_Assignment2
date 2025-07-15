@@ -113,11 +113,7 @@ const dictionary: Record<string, string> = {
   "make": "بنانا",
   "made": "بنایا گیا",
   "creating": "بنانا",
-  "created": "بنایا گیا",
-  "creating": "بنانا",
-  "created": "بنایا گیا",
-  "creating": "بنانا",
-  "created": "بنایا گیا",
+  "created": "بنایا گیا"
 };
 
 
